@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     let itemListLabel = UILabel()
     let addItemButton = UIButton()
     
+    lazy var addItemView = AddItemView()
+    
     let tableViewBackGround = UIView()
     let tableView = UITableView()
     
@@ -45,6 +47,7 @@ class ViewController: UIViewController {
         addItemButton.translatesAutoresizingMaskIntoConstraints = false
         tableViewBackGround.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        addItemView.translatesAutoresizingMaskIntoConstraints = false
         //Logo
         let logoImage = UIImage(named: "taska")
         logo.image = logoImage
@@ -57,6 +60,7 @@ class ViewController: UIViewController {
         
         //Add button
         addItemButton.setBackgroundImage(UIImage(systemName: "plus.circle")?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
+        addItemButton.addTarget(self, action: #selector(addItemButtonTapped(_:)), for: .touchUpInside)
         
         tableViewBackGround.backgroundColor = .white
         tableViewBackGround.layer.cornerRadius = 45
@@ -91,7 +95,7 @@ extension ViewController : UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskaCustomCell.cellIdentifier, for: indexPath) as! TaskaCustomCell
         
         let item = viewModel.listOfItems[indexPath.row]
-        let imageName = item.done ? "circle.fill" : "circle"
+        let imageName = item.done ? "checkmark.circle" : "circle"
         let tintColor = item.done ? UIColor.systemGreen : UIColor.black
 
         cell.checkButton.setBackgroundImage(UIImage(systemName: imageName)?.withTintColor(tintColor, renderingMode: .alwaysOriginal), for: .normal)
@@ -112,6 +116,15 @@ extension ViewController {
         viewModel.listOfItems[index].done.toggle()
         setupLabel(items: viewModel.listOfItems)
         tableView.reloadData()
+    }
+    
+    @objc func addItemButtonTapped(_ sender:UIButton) {
+        view.addSubview(addItemView)
+        
+        NSLayoutConstraint.activate([
+            addItemView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            addItemView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
     }
 }
 

@@ -13,7 +13,7 @@ extension ViewController {
         view.addSubview(itemListLabel)
         view.addSubview(addItemButton)
         view.addSubview(tableViewBackGround)
-        view.addSubview(tableView)
+        tableViewBackGround.addSubview(tableView)
         
         NSLayoutConstraint.activate([
             logo.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 3),
@@ -36,19 +36,10 @@ extension ViewController {
         
         NSLayoutConstraint.activate([
             tableViewBackGround.topAnchor.constraint(equalTo: itemListLabel.bottomAnchor, constant: 75),
-            tableViewBackGround.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            tableViewBackGround.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            tableViewBackGround.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 35),
+            tableViewBackGround.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -35),
             view.bottomAnchor.constraint(equalToSystemSpacingBelow: tableViewBackGround.bottomAnchor, multiplier: 20)
         ])
-        
-        NSLayoutConstraint.activate([
-            tableViewBackGround.topAnchor.constraint(equalTo: itemListLabel.bottomAnchor, constant: 75),
-            tableViewBackGround.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            tableViewBackGround.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            view.bottomAnchor.constraint(equalToSystemSpacingBelow: tableViewBackGround.bottomAnchor, multiplier: 20)
-        ])
-        
-        tableViewBackGround.addSubview(tableView)
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: tableViewBackGround.topAnchor,constant: 25),
