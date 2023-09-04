@@ -9,12 +9,14 @@ import UIKit
 
 protocol AddItemDelegate: AnyObject {
     func didAddItem(item:Item)
+    func didCloseWindow()
 }
 
 class AddItemView : UIView {
     
     weak var delegate : AddItemDelegate?
     
+    let viewModel = ItemListViewModel()
     let closeButton = UIButton()
     let label = UILabel()
     let textfield = UITextField()
@@ -49,14 +51,19 @@ class AddItemView : UIView {
         addItemButton.translatesAutoresizingMaskIntoConstraints = false
         
         closeButton.setBackgroundImage(UIImage(systemName: "x.circle")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), for: .normal)
+        closeButton.addTarget(self, action: #selector(closeButtonTapped(_:)), for: .touchUpInside)
         
         label.text = "O que você deseja adicionar ?"
         label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = .label
         
         textfield.placeholder = "Ex: Reunião as 15h"
+        textfield.autocapitalizationType = .none
+        textfield.textColor = .systemGray
+        textfield.autocorrectionType = .no
         
         addItemButton.setBackgroundImage(UIImage(systemName: "plus.circle")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), for: .normal)
+        addItemButton.addTarget(self, action: #selector(addItemButtonTapped(_:)), for: .touchUpInside)
     }
     
     private func layout() {
@@ -68,8 +75,8 @@ class AddItemView : UIView {
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: topAnchor, constant: 2),
             closeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
-            closeButton.widthAnchor.constraint(equalToConstant: 32),
-            closeButton.heightAnchor.constraint(equalToConstant: 32),
+            closeButton.widthAnchor.constraint(equalToConstant: 40),
+            closeButton.heightAnchor.constraint(equalToConstant: 40),
         ])
         
         NSLayoutConstraint.activate([
@@ -78,15 +85,29 @@ class AddItemView : UIView {
         ])
         
         NSLayoutConstraint.activate([
-            textfield.topAnchor.constraint(equalTo: label.bottomAnchor),
-            textfield.leadingAnchor.constraint(equalTo: label.leadingAnchor)
+            textfield.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 3),
+            textfield.leadingAnchor.constraint(equalTo: label.leadingAnchor),
+            textfield.widthAnchor.constraint(equalToConstant: 200)
         ])
         
         NSLayoutConstraint.activate([
-            addItemButton.topAnchor.constraint(equalTo: textfield.bottomAnchor),
-            addItemButton.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 1),
-            addItemButton.widthAnchor.constraint(equalToConstant: 32),
-            addItemButton.heightAnchor.constraint(equalToConstant: 32),
+            addItemButton.topAnchor.constraint(equalTo: topAnchor,constant: 2),
+            addItemButton.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: -2),
+            addItemButton.widthAnchor.constraint(equalToConstant: 40),
+            addItemButton.heightAnchor.constraint(equalToConstant: 40),
         ])
+    }
+}
+
+extension AddItemView {
+    @objc func closeButtonTapped(_ sender:UIButton) {
+        delegate?.didCloseWindow()
+    }
+    
+    @objc func addItemButtonTapped(_ sender:UIButton) {
+        if textfield.text != "" {
+            guard let itemName = textfield.text else { return }
+            delegate?.didAddItem(item: Item(id:viewModel.listOfItems.count+1, name: itemName, done: false))
+        }
     }
 }

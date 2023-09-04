@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     let itemListLabel = UILabel()
     let addItemButton = UIButton()
     
-    lazy var addItemView = AddItemView()
+    let addItemView = AddItemView()
     
     let tableViewBackGround = UIView()
     let tableView = UITableView()
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         style()
         layout()
         setupTableView()
-        
+        addItemView.delegate = self
     }
     
     private func setupTableView() {
@@ -86,6 +86,7 @@ extension ViewController {
 //MARK: - Actions uitableview data source and delegate methods
 
 extension ViewController : UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.listOfItems.count
     }
@@ -93,6 +94,7 @@ extension ViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskaCustomCell.cellIdentifier, for: indexPath) as! TaskaCustomCell
+        
         
         let item = viewModel.listOfItems[indexPath.row]
         let imageName = item.done ? "checkmark.circle" : "circle"
@@ -111,20 +113,21 @@ extension ViewController : UITableViewDataSource, UITableViewDelegate {
 //MARK: -Actions
 
 extension ViewController {
-    @objc func checkmarkClick(_ sender:UIButton) {
-        let index = sender.tag
-        viewModel.listOfItems[index].done.toggle()
-        setupLabel(items: viewModel.listOfItems)
-        tableView.reloadData()
-    }
-    
     @objc func addItemButtonTapped(_ sender:UIButton) {
         view.addSubview(addItemView)
+        addItemView.textfield.becomeFirstResponder()
         
         NSLayoutConstraint.activate([
             addItemView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             addItemView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
+    }
+    
+    @objc func checkmarkClick(_ sender:UIButton) {
+        let index = sender.tag
+        viewModel.listOfItems[index].done.toggle()
+        setupLabel(items: viewModel.listOfItems)
+        tableView.reloadData()
     }
 }
 
@@ -134,6 +137,16 @@ extension ViewController : TaskaCustomCellDelegate {
     }
 }
 
-
-
+extension ViewController : AddItemDelegate {
+    func didAddItem(item: Item) {
+        viewModel.listOfItems.append(item)
+        addItemView.textfield.text = ""
+        addItemView.removeFromSuperview()
+        tableView.reloadData()
+    }
+    
+    func didCloseWindow() {
+        addItemView.removeFromSuperview()
+    }
+}
 
