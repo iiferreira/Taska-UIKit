@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.loadMockData()
+        viewModel.fetchData()
         style()
         layout()
         setupTableView()
@@ -108,6 +108,19 @@ extension ViewController : UITableViewDataSource, UITableViewDelegate {
         cell.label.text = viewModel.listOfItems[indexPath.row].name
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+      if editingStyle == .delete {
+          
+          let itemToRemove = indexPath.row
+          print(viewModel.listOfItems[itemToRemove].name)
+          guard let item = viewModel.listOfItems[itemToRemove].name else { return }
+          CoreDataManager.shared.removeItem(itemName: item)
+          viewModel.listOfItems = CoreDataManager.shared.fetchItems()
+          tableView.reloadData()
+          setupLabel(items: viewModel.listOfItems)
+      }
+    }
 }
 
 //MARK: -Actions
@@ -138,11 +151,13 @@ extension ViewController : TaskaCustomCellDelegate {
 }
 
 extension ViewController : AddItemDelegate {
-    func didAddItem(item: Item) {
-        viewModel.listOfItems.append(item)
+    func didAddItem(item: String) {
+        viewModel.createItem(name: item, done: false)
         addItemView.textfield.text = ""
         addItemView.removeFromSuperview()
+        viewModel.listOfItems = CoreDataManager.shared.fetchItems()
         tableView.reloadData()
+        setupLabel(items: viewModel.listOfItems)
     }
     
     func didCloseWindow() {

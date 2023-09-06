@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Item {
-    var id : Int
-    var name : String
-    var done : Bool
-}
+//struct Item {
+//    var id : Int
+//    var name : String
+//    var done : Bool
+//}
 
 class ItemListViewModel {
     var listOfItems : [Item] = []
@@ -20,14 +20,16 @@ class ItemListViewModel {
         
     }
     
+    func createItem(name:String, done:Bool) {
+        CoreDataManager.shared.createItem(id: listOfItems.count+1, name: name, done: done)
+    }
+    
+    func fetchData() {
+        listOfItems = CoreDataManager.shared.fetchItems()
+    }
+    
     func loadMockData() {
-        let item1 = Item(id:0, name: "Estudar python", done: false)
-        let item2 = Item(id:1, name: "Ligar francina", done: false)
-        let item3 = Item(id:2, name:"Fazer banco de dados.", done: true)
-        
-        listOfItems.append(item1)
-        listOfItems.append(item2)
-        listOfItems.append(item3)
+        CoreDataManager.shared.createItem(id: listOfItems.count+1, name: "Manga", done: true)
     }
     
 }

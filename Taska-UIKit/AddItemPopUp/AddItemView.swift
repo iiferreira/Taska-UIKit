@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddItemDelegate: AnyObject {
-    func didAddItem(item:Item)
+    func didAddItem(item:String)
     func didCloseWindow()
 }
 
@@ -16,7 +16,7 @@ class AddItemView : UIView {
     
     weak var delegate : AddItemDelegate?
     
-    let viewModel = ItemListViewModel()
+   // let viewModel = ItemListViewModel()
     let closeButton = UIButton()
     let label = UILabel()
     let textfield = UITextField()
@@ -107,7 +107,7 @@ extension AddItemView {
     @objc func addItemButtonTapped(_ sender:UIButton) {
         if textfield.text != "" {
             guard let itemName = textfield.text else { return }
-            delegate?.didAddItem(item: Item(id:viewModel.listOfItems.count+1, name: itemName, done: false))
+            delegate?.didAddItem(item: itemName)
         }
     }
 }

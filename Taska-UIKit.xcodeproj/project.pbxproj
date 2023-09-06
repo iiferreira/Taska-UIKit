@@ -15,6 +15,8 @@
 		1F6637FE2AA17309004310C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6637FD2AA17309004310C2 /* ViewController.swift */; };
 		1F6638032AA1730A004310C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F6638022AA1730A004310C2 /* Assets.xcassets */; };
 		1F6638062AA1730A004310C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F6638042AA1730A004310C2 /* LaunchScreen.storyboard */; };
+		1FA6902A2AA757B40069B2AA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA690292AA757B40069B2AA /* CoreDataManager.swift */; };
+		1FA6902D2AA8AA8F0069B2AA /* Taska.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FA6902B2AA8AA8F0069B2AA /* Taska.xcdatamodeld */; };
 		1FFB704B2AA20B9E0011698C /* ViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB704A2AA20B9E0011698C /* ViewController+Layout.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		1F6638022AA1730A004310C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F6638052AA1730A004310C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F6638072AA1730A004310C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FA690292AA757B40069B2AA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		1FA6902C2AA8AA8F0069B2AA /* Taska.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Taska.xcdatamodel; sourceTree = "<group>"; };
 		1FFB704A2AA20B9E0011698C /* ViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Layout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,18 +90,28 @@
 		1F6637F82AA17309004310C2 /* Taska-UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				1FA690282AA7579A0069B2AA /* Files */,
 				1F5B169C2AA273CD00B27E5F /* AddItemPopUp */,
 				1F5B16992AA258F700B27E5F /* Model */,
 				1F5B16962AA2553700B27E5F /* CustomCell */,
+				1F6637FD2AA17309004310C2 /* ViewController.swift */,
+				1FFB704A2AA20B9E0011698C /* ViewController+Layout.swift */,
+				1FA690292AA757B40069B2AA /* CoreDataManager.swift */,
+				1FA6902B2AA8AA8F0069B2AA /* Taska.xcdatamodeld */,
+			);
+			path = "Taska-UIKit";
+			sourceTree = "<group>";
+		};
+		1FA690282AA7579A0069B2AA /* Files */ = {
+			isa = PBXGroup;
+			children = (
 				1F6637F92AA17309004310C2 /* AppDelegate.swift */,
 				1F6637FB2AA17309004310C2 /* SceneDelegate.swift */,
-				1F6637FD2AA17309004310C2 /* ViewController.swift */,
 				1F6638022AA1730A004310C2 /* Assets.xcassets */,
 				1F6638042AA1730A004310C2 /* LaunchScreen.storyboard */,
 				1F6638072AA1730A004310C2 /* Info.plist */,
-				1FFB704A2AA20B9E0011698C /* ViewController+Layout.swift */,
 			);
-			path = "Taska-UIKit";
+			name = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +190,8 @@
 				1F5B16982AA2554200B27E5F /* CustomCell.swift in Sources */,
 				1FFB704B2AA20B9E0011698C /* ViewController+Layout.swift in Sources */,
 				1F5B169B2AA2590B00B27E5F /* ItemListModel.swift in Sources */,
+				1FA6902A2AA757B40069B2AA /* CoreDataManager.swift in Sources */,
+				1FA6902D2AA8AA8F0069B2AA /* Taska.xcdatamodeld in Sources */,
 				1F6637FC2AA17309004310C2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,6 +402,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1FA6902B2AA8AA8F0069B2AA /* Taska.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1FA6902C2AA8AA8F0069B2AA /* Taska.xcdatamodel */,
+			);
+			currentVersion = 1FA6902C2AA8AA8F0069B2AA /* Taska.xcdatamodel */;
+			path = Taska.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1F6637EE2AA17309004310C2 /* Project object */;
 }
